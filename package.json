@@ -19,7 +19,7 @@
     "bezier-easing": "^2.1.0",
     "curtainsjs": "^8.1.6",
     "dayjs": "^1.11.10",
-    "es-toolkit": "^1.39.8",
+    "es-toolkit": "^1.44.0",
     "is-mobile": "^4.0.0",
     "latinize": "^0.5.0",
     "localforage": "^1.10.0",

@@ -6,8 +6,6 @@ import * as process from 'process';
 import { visualizer } from 'rollup-plugin-visualizer';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import { defineConfig } from 'vitest/config';
-import routePaths from './src/routes/routePaths';
-import { htmlPrerender } from './vite-plugin-html-prerender/src/index';
 import { sentryVitePlugin } from '@sentry/vite-plugin';
 import ReactCompilerBabelPlugin from 'babel-plugin-react-compiler';
 
@@ -34,7 +32,6 @@ export default defineConfig({
       babel: {
         plugins: [
           '@emotion',
-          // https://mui.com/material-ui/guides/minimizing-bundle-size/
           [
             'transform-imports',
             {
@@ -55,21 +52,13 @@ export default defineConfig({
     tsconfigPaths(),
     visualizer(),
     !customCert && basicSsl(),
-
-    process.env.VITE_APP_PRERENDER
-      ? htmlPrerender({
-          staticDir: path.join(__dirname, 'build'),
-          routes: Object.values(routePaths).map((route) => `/${route}`),
-          minify: {
-            collapseBooleanAttributes: true,
-            collapseWhitespace: true,
-            decodeEntities: true,
-            keepClosingSlash: true,
-            sortAttributes: true,
-          },
-        })
-      : null,
+    // Prerender désactivé pour éviter les pages vides au déploiement
+    null,
   ],
+  // Injection forcée des variables pour le navigateur
+  define: {
+    'process.env.VITE_APP_DATA_URL': JSON.stringify('https://asvarox.github.io/allkaraoke-data/'),
+  },
   base: '/',
   build: {
     outDir: 'build',
@@ -84,7 +73,6 @@ export default defineConfig({
       cert: fs.readFileSync(customCert ? certPath : './config/crt/dummy.pem'),
     },
   },
-
   test: {
     include: ['**/*.test.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
     globals: true,

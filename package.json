@@ -132,7 +132,7 @@
     "@welldone-software/why-did-you-render": "^10.0.1",
     "babel-plugin-react-compiler": "19.1.0-rc.3",
     "babel-plugin-transform-imports": "^2.0.0",
-    "dotenv": "^16.4.4",
+    "dotenv": "^17.2.3",
     "eslint": "^9.36.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-no-only-tests": "^3.3.0",
